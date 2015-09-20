@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MAIN THEME -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <!--<item name="android:navigationBarColor">@color/primary_dark</item>-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="colorControlActivated">@color/icon.do</item>
+        <item name="colorSwitchThumbNormal">@color/back_selected_item</item>
+
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:autoCompleteTextViewStyle">@style/MySearchViewStyle</item>
+
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+    </style>
+
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/item_background</item>
+        <item name="android:background">@drawable/item_background</item>
+    </style>
+
+    <!-- MAIN ACTIONBAR -->
+    <style name="style_actionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:actionModeBackground">@color/primary</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="textAppearanceLargePopupMenu">@style/popup_iteml</item>
+        <item name="textAppearanceSmallPopupMenu">@style/popup_items</item>
+    </style>
+
+    <!-- POPUP MAIN ACTIONBAR -->
+    <style name="popup_iteml" parent="@style/TextAppearance.AppCompat.Widget.PopupMenu.Large">
+        <item name="android:color">@color/primary_text</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="popup_items" parent="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small">
+        <item name="android:color">@color/primary_text</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:longClickable">false</item>
+    </style>
+</resources>

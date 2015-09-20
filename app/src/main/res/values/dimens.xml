@@ -1,0 +1,28 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="toolbar_h">56dp</dimen>
+
+    <dimen name="fab_elevation">8dp</dimen>
+    <dimen name="fab_press_translation_z">9dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_icon_size">24dp</dimen>
+    <dimen name="icon_size">32dp</dimen>
+    <dimen name="list_item_height">72dp</dimen>
+    <dimen name="paddingList">10dp</dimen>
+
+    <dimen name="toolbar_elevation_i">1dp</dimen>
+    <dimen name="toolbar_elevation_scrolled">4dp</dimen>
+
+    <dimen name="toolbar_height_extended">128dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">12dp</dimen>
+
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <dimen name="navigation_drawer_width">300dp</dimen>
+</resources>

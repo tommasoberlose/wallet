@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="fab_color_1">#19a15f</color>
+    <color name="fab_color_1_muted">#12804b</color>
+
+    <color name="primary">#19a15f</color>
+    <color name="primary_dark">#12804b</color>
+    <color name="primary_light">#C5CAE9</color>
+    <color name="accent">#F44336</color>
+    <color name="accent_1">#D32F2F</color>
+    <color name="primary_text">#212121</color>
+    <color name="all_text">#444444</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="third_text">#999999</color>
+    <color name="back_selected_item">#eeeeee</color>
+    <color name="back_select">#efefef</color>
+    <color name="light_grey">#dedede</color>
+    <color name="white_dark">#b3b3b3</color>
+
+    <color name="drawer_icon">#757575</color>
+
+    <color name="white_back">#55FFFFFF</color>
+    <color name="black_back">#55000000</color>
+
+    <color name="icon.r">#F44336</color>
+    <color name="icon.i">#3f5ca9</color>
+    <color name="icon.t">#009688</color>
+    <color name="icon.l">#f5be25</color>
+    <color name="icon.l_dark">#ffb300</color>
+    <color name="icon.do">#ef9200</color>
+    <color name="green">#19c029</color>
+
+
+
+</resources>

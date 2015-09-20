@@ -1,0 +1,48 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_awesome_toolbar"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:theme="@style/style_actionBar"
+            android:background="@color/primary"
+            android:elevation="2dp"
+            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
+            android:transitionName="toolbar"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/my_awesome_toolbar"
+            android:layout_alignParentTop="false" />
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_add"
+        android:id="@+id/fab_1"
+        android:elevation="@dimen/fab_elevation"
+        android:clickable="true"
+        android:animateLayoutChanges="true"
+        android:layout_gravity="end|bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:transitionName="floating_button"
+        app:borderWidth="0dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        app:backgroundTint="@color/primary"/>
+
+</android.support.design.widget.CoordinatorLayout>
