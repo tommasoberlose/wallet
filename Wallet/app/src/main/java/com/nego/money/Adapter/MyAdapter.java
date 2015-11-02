@@ -81,9 +81,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     }
 
-    public MyAdapter(DbAdapter dbHelper, String query, Context mContext) {
+    public MyAdapter(DbAdapter dbHelper, String query, boolean archived, Context mContext) {
         this.mContext = mContext;
-        generate_list(dbHelper, query);
+        generate_list(dbHelper, query, archived);
     }
 
     @Override
@@ -238,33 +238,37 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     // GENERATE LIST
-    public void generate_list(DbAdapter dbHelper, String query) {
+    public void generate_list(DbAdapter dbHelper, String query, boolean archived) {
         mDataset.clear();
         Cursor cursor;
         if (query.equals("NULL")) {
-            int count = dbHelper.getElementsN();
-            if (count == 0) {
-                mDataset.add(new Item(0));
-            } else {
-
+            if (archived)
+                cursor = dbHelper.fetchAllElementsOld();
+            else
                 cursor = dbHelper.fetchAllElements();
-                while (cursor.moveToNext())
-                    mDataset.add(new Item(4, new Element(cursor)));
-                cursor.close();
-                mDataset.add(new Item(1));
-            }
-        } else {
-            int count = dbHelper.getElementsNByFilterPeople(query);
-            if (count == 0) {
+
+            if (cursor.getCount() == 0) {
                 mDataset.add(new Item(0));
             } else {
-
-                cursor = dbHelper.fetchElementsByFilterPeople(query);
                 while (cursor.moveToNext())
                     mDataset.add(new Item(4, new Element(cursor)));
-                cursor.close();
                 mDataset.add(new Item(1));
             }
+            cursor.close();
+        } else {
+            if (archived)
+                cursor = dbHelper.fetchElementsByFilterPeopleOld(query);
+            else
+                cursor = dbHelper.fetchElementsByFilterPeople(query);
+
+            if (cursor.getCount() == 0) {
+                mDataset.add(new Item(0));
+            } else {
+                while (cursor.moveToNext())
+                    mDataset.add(new Item(4, new Element(cursor)));
+                mDataset.add(new Item(1));
+            }
+            cursor.close();
         }
     }
 

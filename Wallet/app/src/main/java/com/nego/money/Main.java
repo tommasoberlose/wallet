@@ -56,6 +56,8 @@ public class Main extends AppCompatActivity {
     public MyAdapter adapter;
     private Menu menu;
 
+    private boolean archived = false;
+
     private BroadcastReceiver mReceiver;
 
     @Override
@@ -234,9 +236,20 @@ public class Main extends AppCompatActivity {
         }
 
         if (id == R.id.action_feedback) {
-            Intent url_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/communities/101315915052347742390"));
+            Intent url_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/communities/100614116200820350356/stream/d7b99217-3611-48dc-b8bb-ebff20b105b5"));
             startActivity(url_intent);
         }
+
+        if (id == R.id.action_archived) {
+            archived = !archived;
+            update_list(query);
+
+            if (archived)
+                item.setTitle(getString(R.string.options_not_archived));
+            else
+                item.setTitle(getString(R.string.option_archived));
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -385,9 +398,9 @@ public class Main extends AppCompatActivity {
 
                 final MyAdapter mAdapter;
                 if (query.equals(""))
-                    mAdapter = new MyAdapter(dbHelper, "NULL", Main.this);
+                    mAdapter = new MyAdapter(dbHelper, "NULL", archived, Main.this);
                 else
-                    mAdapter = new MyAdapter(dbHelper, query, Main.this);
+                    mAdapter = new MyAdapter(dbHelper, query, archived, Main.this);
 
                 final String count = Utils.countDebt(Main.this, dbHelper, query);
 

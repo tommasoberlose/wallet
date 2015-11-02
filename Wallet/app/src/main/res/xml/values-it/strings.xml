@@ -53,4 +53,6 @@
     <string name="action_change_currency">Cambia Valuta</string>
     <string name="action_change_currency_subtitle">Non vi sarà nessun cambio di valuta sugli importi già presenti</string>
     <string name="title_name">Portafoglio</string>
+    <string name="option_archived">Archivio</string>
+    <string name="options_not_archived">Da Fare</string>
 </resources>
