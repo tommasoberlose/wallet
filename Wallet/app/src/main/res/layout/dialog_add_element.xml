@@ -101,7 +101,7 @@
                     android:singleLine="false"
                     android:maxLines="3"
                     android:inputType="textCapSentences"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
                     android:textColor="@android:color/white" />
         </RelativeLayout>
 

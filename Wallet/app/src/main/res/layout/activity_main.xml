@@ -2,15 +2,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_material_light"
+    android:id="@+id/main">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/my_awesome_toolbar"
-            android:layout_height="64dp"
+            android:layout_height="?android:attr/actionBarSize"
             android:layout_width="match_parent"
             android:theme="@style/style_actionBar"
             android:background="@color/primary"
@@ -20,26 +23,21 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/my_awesome_toolbar"
-            android:layout_alignParentLeft="true"/>
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="@dimen/fab_size"
-            android:layout_height="@dimen/fab_size"
-            android:background="@drawable/iconb_g"
-            android:layout_margin="16dp"
-            android:id="@+id/fab_1"
-            android:clickable="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
-            <ImageView
-                android:layout_width="@dimen/fab_icon_size"
-                android:layout_height="@dimen/fab_icon_size"
-                android:src="@drawable/ic_add"
-                android:layout_centerInParent="true"/>
-        </RelativeLayout>
-    </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_add"
+        android:id="@+id/fab_1"
+        app:elevation="@dimen/fab_elevation"
+        android:clickable="true"
+        android:animateLayoutChanges="true"
+        android:layout_gravity="end|bottom"
+        android:transitionName="floating_button"
+        app:borderWidth="0dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        app:backgroundTint="@color/primary"/>
 
 </android.support.design.widget.CoordinatorLayout>

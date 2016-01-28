@@ -8,7 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,14 +89,14 @@ public class ViewElement extends Dialog {
 
             if (e.Me()) {
                 ((TextView) dialogView.findViewById(R.id.own)).setText(mContext.getString(R.string.you_own));
-                dialogView.findViewById(R.id.toolbar).setBackgroundColor(context.getResources().getColor(R.color.accent));
+                dialogView.findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(mContext, R.color.accent));
             } else {
                 ((TextView) dialogView.findViewById(R.id.own)).setText(mContext.getString(R.string.they_own));
-                dialogView.findViewById(R.id.toolbar).setBackgroundColor(context.getResources().getColor(R.color.primary));
+                dialogView.findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(mContext, R.color.primary));
             }
 
             if (e.Done())
-                dialogView.findViewById(R.id.toolbar).setBackgroundColor(context.getResources().getColor(R.color.divider));
+                dialogView.findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(mContext, R.color.divider));
 
 
             dialogView.findViewById(R.id.control).setOnClickListener(new View.OnClickListener() {

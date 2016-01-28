@@ -43,12 +43,11 @@ import java.util.Set;
 public class Main extends AppCompatActivity {
 
     public Toolbar toolbar;
-    private boolean controlsVisible = true;
     private boolean search = false;
     private ActionMode mActionMode;
 
     private RecyclerView recList;
-    public View button;
+    public FloatingActionButton button;
 
     private String query = "";
     public SearchView searchView;
@@ -82,7 +81,7 @@ public class Main extends AppCompatActivity {
         }
 
         // FLOATING BUTTON
-        button = findViewById(R.id.fab_1);
+        button = (FloatingActionButton) findViewById(R.id.fab_1);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,16 +96,6 @@ public class Main extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-
-        recList.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                slide_h(recyclerView, dy, button);
-            }
-        });
-
-        final TypedValue typed_value = new TypedValue();
-        getTheme().resolveAttribute(android.support.v7.appcompat.R.attr.actionBarSize, typed_value, true);
 
         update_list(query);
 
@@ -325,28 +314,6 @@ public class Main extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void slide_hDown(View button) {
-        if (button != null)
-            button.animate().setDuration(200).translationY(0).setInterpolator(new AccelerateDecelerateInterpolator()).start();
-        controlsVisible = true;
-    }
-
-    // TOOLBAR SCROLL
-    public void slide_h(RecyclerView recyclerView, int dy, View button) {
-        if (dy < 0) {
-            if (!controlsVisible) {
-                slide_hDown(button);
-                controlsVisible = true;
-            }
-        } else {
-            if (controlsVisible) {
-                if (button != null)
-                    button.animate().setDuration(200).translationY(button.getHeight()*2).setInterpolator(new AccelerateDecelerateInterpolator()).start();
-                controlsVisible = false;
-            }
-        }
-    }
-
 
     @Override
     public void onResume() {
@@ -358,7 +325,6 @@ public class Main extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String action_type = intent.getStringExtra(Costants.EXTRA_ACTION_TYPE);
-                slide_hDown(button);
                 toggleCab(false);
                 update_list(query);
                 switch (action_type) {
@@ -416,8 +382,6 @@ public class Main extends AppCompatActivity {
                         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(Main.this);
                         String currency = SP.getString(Costants.ACTUAL_CURRENCY, Currency.getInstance(Locale.getDefault()).getSymbol());
                         setTitle(getString(R.string.title_name) + ": " + count + currency);
-
-                        slide_hDown(button);
                     }
                 });
             }
