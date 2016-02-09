@@ -44,7 +44,7 @@
     <string name="debit">You have some debit</string>
     <string name="credit">You have some credit</string>
     <string name="you_own">You own</string>
-    <string name="they_own">They Own</string>
+    <string name="they_own">They own</string>
     <string name="action_cancel">Cancel</string>
     <string name="note">+ Add a Note</string>
     <string name="who">Who</string>
@@ -59,4 +59,5 @@
     <string name="title_name">Wallet</string>
     <string name="option_archived">Archive</string>
     <string name="options_not_archived">To do</string>
+    <string name="text_note">Note:</string>
 </resources>

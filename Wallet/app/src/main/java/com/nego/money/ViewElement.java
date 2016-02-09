@@ -41,8 +41,10 @@ public class ViewElement extends Dialog {
 
             if (e.getNote().equals("")) {
                 dialogView.findViewById(R.id.note).setVisibility(View.GONE);
+                dialogView.findViewById(R.id.title_note).setVisibility(View.GONE);
             } else {
                 dialogView.findViewById(R.id.note).setVisibility(View.VISIBLE);
+                dialogView.findViewById(R.id.title_note).setVisibility(View.VISIBLE);
                 ((TextView) dialogView.findViewById(R.id.note)).setText(e.getNote());
             }
 
@@ -82,21 +84,25 @@ public class ViewElement extends Dialog {
             }
 
             if (e.Done()) {
-                ((TextView) dialogView.findViewById(R.id.buttonpositive)).setText(mContext.getString(R.string.action_unpayed));
+                ((ImageView) dialogView.findViewById(R.id.action_paid)).setImageResource(R.drawable.ic_action_content_undo);
             } else {
-                ((TextView) dialogView.findViewById(R.id.buttonpositive)).setText(mContext.getString(R.string.action_payed));
+                ((ImageView) dialogView.findViewById(R.id.action_paid)).setImageResource(R.drawable.ic_action_done);
             }
 
             if (e.Me()) {
                 ((TextView) dialogView.findViewById(R.id.own)).setText(mContext.getString(R.string.you_own));
                 dialogView.findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(mContext, R.color.accent));
+                ((TextView) dialogView.findViewById(R.id.importo)).setTextColor(ContextCompat.getColor(mContext, R.color.accent));
             } else {
                 ((TextView) dialogView.findViewById(R.id.own)).setText(mContext.getString(R.string.they_own));
                 dialogView.findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(mContext, R.color.primary));
+                ((TextView) dialogView.findViewById(R.id.importo)).setTextColor(ContextCompat.getColor(mContext, R.color.primary));
             }
 
-            if (e.Done())
+            if (e.Done()) {
                 dialogView.findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(mContext, R.color.divider));
+                ((TextView) dialogView.findViewById(R.id.importo)).setTextColor(ContextCompat.getColor(mContext, R.color.secondary_text));
+            }
 
 
             dialogView.findViewById(R.id.control).setOnClickListener(new View.OnClickListener() {
@@ -136,14 +142,7 @@ public class ViewElement extends Dialog {
                     }
             });
 
-            dialogView.findViewById(R.id.cancel_action).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
-
-            dialogView.findViewById(R.id.buttonpositive).setOnClickListener(new View.OnClickListener() {
+            dialogView.findViewById(R.id.action_paid).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!e.Done())

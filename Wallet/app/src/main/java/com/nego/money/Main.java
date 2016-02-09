@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -21,6 +22,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,7 +45,6 @@ import java.util.Set;
 public class Main extends AppCompatActivity {
 
     public Toolbar toolbar;
-    private boolean search = false;
     private ActionMode mActionMode;
 
     private RecyclerView recList;
@@ -67,22 +68,10 @@ public class Main extends AppCompatActivity {
         // TOOLBAR
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
-
         setTitle(getResources().getString(R.string.title_activity_main));
-
-        // INTENT
-        Intent intent = getIntent();
-
-        //SEARCH
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            search = true;
-            query = intent.getStringExtra(SearchManager.QUERY);
-            update_list(query);
-        }
 
         // FLOATING BUTTON
         button = (FloatingActionButton) findViewById(R.id.fab_1);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +85,48 @@ public class Main extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                final Element to_archive = adapter.getElement(viewHolder.getAdapterPosition());
+                if (to_archive != null) {
+                    if (!archived) {
+                        ElementService.startAction(Main.this, Costants.ACTION_CHECKED, to_archive);
+                        Snackbar.make(recList, getString(R.string.element_paid), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.undo), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        ElementService.startAction(Main.this, Costants.ACTION_UNCHECKED, to_archive);
+                                        Snackbar.make(recList, getString(R.string.element_unpaid), Snackbar.LENGTH_LONG)
+                                                .show();
+                                    }
+                                })
+                                .show();
+                    } else {
+                        ElementService.startAction(Main.this, Costants.ACTION_UNCHECKED, to_archive);
+                        Snackbar.make(recList, getString(R.string.action_unpayed), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.undo), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        ElementService.startAction(Main.this, Costants.ACTION_CHECKED, to_archive);
+                                        Snackbar.make(recList, getString(R.string.element_paid), Snackbar.LENGTH_LONG)
+                                                .show();
+                                    }
+                                })
+                                .show();
+                    }
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recList);
 
         update_list(query);
 
@@ -395,7 +426,14 @@ public class Main extends AppCompatActivity {
             update_list(query);
             invalidateOptionsMenu();
         } else {
-            super.onBackPressed();
+            if (archived) {
+                archived = false;
+                update_list(query);
+                invalidateOptionsMenu();
+
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 

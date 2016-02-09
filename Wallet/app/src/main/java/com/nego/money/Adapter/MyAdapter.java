@@ -320,4 +320,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM d, HH:mm");
         return dateFormat.format(data);
     }
+
+    public Element getElement(int position) {
+        return mDataset.get(position).getItem();
+    }
 }

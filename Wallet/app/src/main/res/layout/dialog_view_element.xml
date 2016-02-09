@@ -1,182 +1,158 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:background="@android:color/white">
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
-        android:id="@+id/toolbar">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceButton"
-            android:textColor="@android:color/white"
-            android:text="@string/app_name"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif-light"
-            android:id="@+id/own"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white"
-            android:fontFamily="sans-serif-light"
-            android:textSize="54sp"
-            android:id="@+id/importo"
-            android:layout_below="@+id/own"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp" />
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:padding="8dp"
-            android:id="@+id/control"
-            android:layout_marginTop="4dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_action_navigation_more_vert"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"  />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:id="@+id/options"
-        android:orientation="vertical" >
-
-        <RelativeLayout
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="12dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="12dp"
-            android:id="@+id/relativeLayout3">
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/primary"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:id="@+id/toolbar">
 
             <TextView
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/checked_icon"
-                android:layout_alignWithParentIfMissing="true"
-                android:id="@+id/letter"
-                android:textSize="18sp"
-                android:textAllCaps="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
                 android:textColor="@android:color/white"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical|center_horizontal" />
+                android:text="@string/app_name"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium"
+                android:id="@+id/own"
+                android:textAllCaps="false"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="48dp"
+                android:padding="4dp"
+                android:id="@+id/action_paid"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_action_done_all"/>
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:padding="8dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_alignWithParentIfMissing="true"
-                android:id="@+id/icon"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:visibility="gone" />
+                android:id="@+id/control"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_action_navigation_more_vert" />
+        </LinearLayout>
 
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/people"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/all_text"
-                android:layout_toEndOf="@+id/letter"
-                android:layout_toRightOf="@+id/letter"  />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/datac"
-                android:layout_below="@+id/people"
-                android:textColor="@color/secondary_text"
-                android:layout_toEndOf="@+id/letter"
-                android:layout_toRightOf="@+id/letter" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="12dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="12dp"
-            android:layout_below="@id/relativeLayout3"
-            android:id="@+id/relativeLayout4" >
+            android:paddingTop="8dp"
+            android:id="@+id/options"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/all_text"
+                android:fontFamily="sans-serif-light"
+                android:textSize="54sp"
+                android:id="@+id/importo"
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/back_select"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp"
+                android:id="@+id/relativeLayout3">
+
+                <TextView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/checked_icon"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:id="@+id/letter"
+                    android:textSize="18sp"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:padding="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:id="@+id/icon"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@+id/letter"
+                    android:layout_toRightOf="@+id/letter">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/people"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/all_text" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:id="@+id/datac"
+                        android:textColor="@color/secondary_text" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_note"
+                android:textColor="@color/secondary_text"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="4dp"
+                android:id="@+id/title_note"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/note"
                 android:textAppearance="?android:attr/textAppearanceListItem"
-                android:textColor="@color/secondary_text" />
-        </RelativeLayout>
+                android:textColor="@color/all_text"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="16dp" />
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:layout_below="@+id/options">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/action_cancel"
-            android:textAppearance="?android:attr/buttonStyle"
-            android:textAllCaps="true"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:id="@+id/cancel_action"
-            android:fontFamily="sans-serif-medium"
-            android:background="?attr/selectableItemBackground"
-            android:textColor="@color/third_text"
-            android:clickable="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_toStartOf="@+id/buttonpositive"
-            android:layout_toLeftOf="@+id/buttonpositive"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/element_paid"
-            android:textAppearance="?android:attr/buttonStyle"
-            android:textAllCaps="true"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:clickable="true"
-            android:background="?attr/selectableItemBackground"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/primary_text"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:id="@+id/buttonpositive" />
-    </RelativeLayout>
-</RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
