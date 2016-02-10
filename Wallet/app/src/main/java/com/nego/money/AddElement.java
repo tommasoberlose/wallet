@@ -14,6 +14,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -55,7 +57,7 @@ public class AddElement extends Dialog {
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(mContext);
         currency.setText(SP.getString(Costants.ACTUAL_CURRENCY, Currency.getInstance(Locale.getDefault()).getSymbol()));
 
-        String[] titles = new String[] {mContext.getString(R.string.they_own_to), mContext.getString(R.string.you_own_to)};
+        String[] titles = new String[] {mContext.getString(R.string.they_own), mContext.getString(R.string.you_own)};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(mContext, R.layout.spinner_item, titles);
         who.setAdapter(spinnerAdapter);
         who.setSelection(0, true);
@@ -71,14 +73,7 @@ public class AddElement extends Dialog {
                 who.setSelection(1, true);
         }
 
-        dialogView.findViewById(R.id.cancel_action).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        dialogView.findViewById(R.id.buttonpositive).setOnClickListener(new View.OnClickListener() {
+        dialogView.findViewById(R.id.action_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 save();
@@ -110,6 +105,9 @@ public class AddElement extends Dialog {
             }
         });
 
+        importo.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         this.setContentView(dialogView);
     }
 
@@ -117,7 +115,7 @@ public class AddElement extends Dialog {
 
     @Override
     public void onBackPressed() {
-        if (!Utils.isEmpty(importo) && ((e == null) || (e != null && !("" + e.getImporto()).equals(importo.getText().toString())))) {
+        if (!Utils.isEmpty(importo) && ((e == null) || !("" + e.getImporto()).equals(importo.getText().toString()))) {
             new AlertDialog.Builder(mContext)
                     .setTitle(mContext.getResources().getString(R.string.attention))
                     .setMessage(mContext.getResources().getString(R.string.ask_exit) + "?")

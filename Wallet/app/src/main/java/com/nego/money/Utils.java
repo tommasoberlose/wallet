@@ -45,22 +45,24 @@ public class Utils {
         Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
 
         // Loop for every contact in the phone
-        if (cursor.getCount() > 0) {
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
 
-            while (cursor.moveToNext()) {
-                name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
-                contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
-                photo = cursor.getString(cursor.getColumnIndex( PHOTO_URI ));
+                while (cursor.moveToNext()) {
+                    name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
+                    contact_id = cursor.getString(cursor.getColumnIndex(_ID));
+                    photo = cursor.getString(cursor.getColumnIndex(PHOTO_URI));
 
-                if (name.toLowerCase().equals(query.toLowerCase())) {
-                    found = true;
-                    break;
+                    if (name.toLowerCase().equals(query.toLowerCase())) {
+                        found = true;
+                        break;
+                    }
+
                 }
 
             }
+            cursor.close();
         }
-
-        cursor.close();
         if (found)
             return new String[]{contact_id, name, photo};
         else
@@ -81,19 +83,21 @@ public class Utils {
         Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
 
         // Loop for every contact in the phone
-        if (cursor.getCount() > 0) {
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
 
-            while (cursor.moveToNext()) {
-                name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
+                while (cursor.moveToNext()) {
+                    name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
 
-                if (name != null && name.toLowerCase().contains(query.toLowerCase())) {
-                    list.add(name);
+                    if (name != null && name.toLowerCase().contains(query.toLowerCase())) {
+                        list.add(name);
+                    }
+
                 }
-
             }
-        }
 
-        cursor.close();
+            cursor.close();
+        }
         return list;
     }
 

@@ -109,17 +109,16 @@ public class Main extends AppCompatActivity {
                                 })
                                 .show();
                     } else {
-                        ElementService.startAction(Main.this, Costants.ACTION_UNCHECKED, to_archive);
-                        Snackbar.make(recList, getString(R.string.action_unpayed), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.undo), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        ElementService.startAction(Main.this, Costants.ACTION_CHECKED, to_archive);
-                                        Snackbar.make(recList, getString(R.string.element_paid), Snackbar.LENGTH_LONG)
-                                                .show();
-                                    }
-                                })
-                                .show();
+                        new AlertDialog.Builder(Main.this)
+                            .setMessage(getResources().getString(R.string.ask_delete_element) + "?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    ElementService.startAction(Main.this, Costants.ACTION_DELETE, to_archive);
+                                    Snackbar.make(recList, getString(R.string.element_deleted), Snackbar.LENGTH_LONG)
+                                            .show();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
                     }
                 }
             }
