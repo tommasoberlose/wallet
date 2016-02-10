@@ -55,10 +55,9 @@ public class Main extends AppCompatActivity {
 
     public MyAdapter adapter;
     private Menu menu;
-
-    private boolean archived = false;
-
     private BroadcastReceiver mReceiver;
+
+    private SharedPreferences SP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +68,8 @@ public class Main extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
         setTitle(getResources().getString(R.string.title_activity_main));
+
+        SP = PreferenceManager.getDefaultSharedPreferences(this);
 
         // FLOATING BUTTON
         button = (FloatingActionButton) findViewById(R.id.fab_1);
@@ -96,7 +97,7 @@ public class Main extends AppCompatActivity {
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 final Element to_archive = adapter.getElement(viewHolder.getAdapterPosition());
                 if (to_archive != null) {
-                    if (!archived) {
+                    if (!to_archive.Done()) {
                         ElementService.startAction(Main.this, Costants.ACTION_CHECKED, to_archive);
                         Snackbar.make(recList, getString(R.string.element_paid), Snackbar.LENGTH_LONG)
                                 .setAction(getString(R.string.undo), new View.OnClickListener() {
@@ -189,84 +190,9 @@ public class Main extends AppCompatActivity {
 
         }
 
-        if (id == R.id.action_change_currency) {
-            AlertDialog.Builder choose = new AlertDialog.Builder(this);
-
-            final View titleView = LayoutInflater.from(this).inflate(R.layout.custom_title, null);
-            ((TextView)titleView.findViewById(R.id.action_bar_title)).setText(getResources().getString(R.string.action_change_currency));
-            ((TextView)titleView.findViewById(R.id.action_bar_subtitle)).setText(getResources().getString(R.string.action_change_currency_subtitle));
-            choose.setCustomTitle(titleView);
-
-
-            final SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(this);
-            String currency = SP.getString(Costants.ACTUAL_CURRENCY, Currency.getInstance(Locale.getDefault()).getSymbol());
-
-            Set<Currency> c;
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                c = Currency.getAvailableCurrencies();
-            } else {
-                c = new HashSet<Currency>();
-                Locale[] locs = Locale.getAvailableLocales();
-
-                for(Locale loc : locs) {
-                    try {
-                        c.add( Currency.getInstance( loc ) );
-                    } catch(Exception exc)
-                    {
-                        // Locale not found
-                    }
-                }
-
-            }
-            int selected = 0;
-            int k = 0;
-            String[] to_display = new String[c.size()];
-            final String[] to_include = new String[c.size()];
-            for (Currency ca : c) {
-                String name = "";
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    name = ca.getDisplayName();
-                }
-                to_display[k] = ca.getSymbol() + " " + name;
-                to_include[k] = ca.getSymbol();
-                if (ca.getSymbol().equals(currency))
-                    selected = k;
-                k++;
-            }
-
-            choose.setSingleChoiceItems(to_display, selected, null)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            dialog.dismiss();
-                            int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                            SharedPreferences.Editor editor = SP.edit();
-                            editor.putString(Costants.ACTUAL_CURRENCY, to_include[selectedPosition]);
-                            editor.apply();
-                            update_list(query);
-                        }
-                    })
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            choose.show();
-        }
-
-        if (id == R.id.action_feedback) {
-            Intent url_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/communities/100614116200820350356/stream/d7b99217-3611-48dc-b8bb-ebff20b105b5"));
-            startActivity(url_intent);
-        }
-
-        if (id == R.id.action_archived) {
-            archived = !archived;
-            update_list(query);
-
-            if (archived)
-                item.setTitle(getString(R.string.options_not_archived));
-            else
-                item.setTitle(getString(R.string.option_archived));
+        if (id == R.id.action_settings) {
+            Intent setting_i = new Intent(this, Settings.class);
+            startActivityForResult(setting_i, 1);
         }
 
         return super.onOptionsItemSelected(item);
@@ -342,6 +268,7 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        update_list(query);
     }
 
 
@@ -394,9 +321,9 @@ public class Main extends AppCompatActivity {
 
                 final MyAdapter mAdapter;
                 if (query.equals(""))
-                    mAdapter = new MyAdapter(dbHelper, "NULL", archived, Main.this);
+                    mAdapter = new MyAdapter(dbHelper, "NULL", SP.getInt(Costants.ARCHIVE_FILTER, 0), Main.this);
                 else
-                    mAdapter = new MyAdapter(dbHelper, query, archived, Main.this);
+                    mAdapter = new MyAdapter(dbHelper, query, SP.getInt(Costants.ARCHIVE_FILTER, 0), Main.this);
 
                 final String count = Utils.countDebt(Main.this, dbHelper, query);
 
@@ -425,14 +352,7 @@ public class Main extends AppCompatActivity {
             update_list(query);
             invalidateOptionsMenu();
         } else {
-            if (archived) {
-                archived = false;
-                update_list(query);
-                invalidateOptionsMenu();
-
-            } else {
-                super.onBackPressed();
-            }
+            super.onBackPressed();
         }
     }
 

@@ -60,4 +60,14 @@
     <string name="option_archived">Archive</string>
     <string name="options_not_archived">To do</string>
     <string name="text_note">Note:</string>
+    <string name="help_feedback_subtitle">The Google + Community for help, send feedback and suggestions</string>
+    <string name="action_filter_title">Filter Archived Debts</string>
+    <string name="action_filter_subtitle">Choose which debts in the main list view of your wallet</string>
+    <string name="filter_archive_0">Only new items</string>
+    <string name="filter_archive_1">Only archived items</string>
+    <string name="filter_archive_2">All items</string>
+    <string name="action_notification_title">Show Summary Notification</string>
+    <string name="action_notification_subtitle">Summary notification will show when there are elements</string>
+    <string name="subtitle_notification">Current amount: %s</string>
+    <string name="action_notification_subtitle_not">Summary notification is not shown</string>
 </resources>

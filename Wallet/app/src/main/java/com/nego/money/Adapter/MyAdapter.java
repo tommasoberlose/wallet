@@ -81,7 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     }
 
-    public MyAdapter(DbAdapter dbHelper, String query, boolean archived, Context mContext) {
+    public MyAdapter(DbAdapter dbHelper, String query, int archived, Context mContext) {
         this.mContext = mContext;
         generate_list(dbHelper, query, archived);
     }
@@ -238,14 +238,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     // GENERATE LIST
-    public void generate_list(DbAdapter dbHelper, String query, boolean archived) {
+    public void generate_list(DbAdapter dbHelper, String query, int archived) {
         mDataset.clear();
-        Cursor cursor;
+        Cursor cursor = null;
         if (query.equals("NULL")) {
-            if (archived)
+            if (archived == 0)
+                cursor = dbHelper.fetchAllElements();
+            else if (archived == 1)
                 cursor = dbHelper.fetchAllElementsOld();
             else
-                cursor = dbHelper.fetchAllElements();
+                cursor = dbHelper.fetchAllElementsAll();
 
             if (cursor.getCount() == 0) {
                 mDataset.add(new Item(0));
@@ -256,10 +258,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
             cursor.close();
         } else {
-            if (archived)
+            if (archived == 0)
+                cursor = dbHelper.fetchElementsByFilterPeople(query);
+            else if (archived == 1)
                 cursor = dbHelper.fetchElementsByFilterPeopleOld(query);
             else
-                cursor = dbHelper.fetchElementsByFilterPeople(query);
+                cursor = dbHelper.fetchElementsByFilterPeopleAll(query);
 
             if (cursor.getCount() == 0) {
                 mDataset.add(new Item(0));

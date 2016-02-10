@@ -21,4 +21,7 @@ public class Costants {
 
     public static final String ACTUAL_CURRENCY = "money.ACTUAL_CURRENCY";
 
+    public static final String ARCHIVE_FILTER = "ARCHIVE_FILTER";
+    public static final String PREFERENCE_SHOW_NOTIFICATION = "PREFERENCE_SHOW_NOTIFICATION";
+
 }

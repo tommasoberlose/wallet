@@ -55,4 +55,5 @@
     <string name="title_name">Portafoglio</string>
     <string name="option_archived">Archivio</string>
     <string name="options_not_archived">Da Fare</string>
+    <string name="text_note">Nota:</string>
 </resources>

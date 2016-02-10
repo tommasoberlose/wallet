@@ -102,6 +102,11 @@ public class DbAdapter {
                 KEY_DONE + " == 1 ", null, null, null, KEY_DATEC + " DESC");
     }
 
+    public Cursor fetchAllElementsAll() {
+        return database.query(DATABASE_TABLE, new String[]{KEY_ID, KEY_PEOPLE, KEY_NOTE, KEY_WHO, KEY_DONE, KEY_IMPORTO, KEY_GROUP, KEY_DATEC, KEY_DATED},
+                null, null, null, null, KEY_DATEC + " DESC");
+    }
+
     public Cursor fetchElementsByFilterPeople(String filter) {
         Cursor mCursor = database.query(true, DATABASE_TABLE, new String[]{
                         KEY_ID, KEY_PEOPLE, KEY_NOTE, KEY_WHO, KEY_DONE, KEY_IMPORTO, KEY_GROUP, KEY_DATEC, KEY_DATED},
@@ -114,6 +119,14 @@ public class DbAdapter {
         Cursor mCursor = database.query(true, DATABASE_TABLE, new String[]{
                         KEY_ID, KEY_PEOPLE, KEY_NOTE, KEY_WHO, KEY_DONE, KEY_IMPORTO, KEY_GROUP, KEY_DATEC, KEY_DATED},
                 KEY_PEOPLE + " like '%" + filter + "%' AND " + KEY_DONE + " == 1 ", null, null, null,  KEY_DATEC + " DESC", null);
+
+        return mCursor;
+    }
+
+    public Cursor fetchElementsByFilterPeopleAll(String filter) {
+        Cursor mCursor = database.query(true, DATABASE_TABLE, new String[]{
+                        KEY_ID, KEY_PEOPLE, KEY_NOTE, KEY_WHO, KEY_DONE, KEY_IMPORTO, KEY_GROUP, KEY_DATEC, KEY_DATED},
+                KEY_PEOPLE + " like '%" + filter + "%'", null, null, null,  KEY_DATEC + " DESC", null);
 
         return mCursor;
     }
