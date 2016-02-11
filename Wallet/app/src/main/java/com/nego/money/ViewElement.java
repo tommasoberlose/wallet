@@ -115,7 +115,13 @@ public class ViewElement extends Dialog {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()) {
-
+                                    case R.id.action_update:
+                                        Intent i_update = new Intent(mContext, UpdateItem.class);
+                                        i_update.setAction(Costants.ACTION_UPDATE);
+                                        i_update.putExtra(Costants.EXTRA_ELEMENT, e);
+                                        mContext.startActivity(i_update);
+                                        onBackPressed();
+                                        return true;
                                     case R.id.action_modify:
                                         Intent i = new Intent(mContext, AddElement.class);
                                         i.setAction(Costants.ACTION_EDIT);

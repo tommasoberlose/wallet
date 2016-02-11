@@ -1,8 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="nego.reminders.AddItem">
+    <item android:id="@+id/action_update" android:title="@string/action_update"
+        android:orderInCategory="90" />
     <item android:id="@+id/action_modify" android:icon="@drawable/ic_action_edit" android:title="@string/action_modify"
-        android:orderInCategory="95" app:showAsAction="always" />
+        android:orderInCategory="95" />
     <item android:id="@+id/action_delete" android:icon="@drawable/ic_action_delete" android:title="@string/action_delete"
-        android:orderInCategory="100" app:showAsAction="always" />
+        android:orderInCategory="100" />
 </menu>
