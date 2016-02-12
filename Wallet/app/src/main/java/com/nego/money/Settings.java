@@ -108,29 +108,6 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.action_filter).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder filter = new AlertDialog.Builder(Settings.this);
-                filter.setTitle(getString(R.string.action_filter_title));
-
-
-                final SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(Settings.this);
-                int filter_archive = SP.getInt(Costants.ARCHIVE_FILTER, 0);
-
-                filter.setSingleChoiceItems(new String[] {getString(R.string.filter_archive_0), getString(R.string.filter_archive_1), getString(R.string.filter_archive_2)}, filter_archive, null)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dialog.dismiss();
-                                int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                                SP.edit().putInt(Costants.ARCHIVE_FILTER, selectedPosition).apply();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null);
-                filter.show();
-            }
-        });
-
         findViewById(R.id.action_notification).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

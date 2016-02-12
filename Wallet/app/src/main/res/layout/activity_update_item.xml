@@ -353,7 +353,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceButton"
                 android:textColor="@color/white_back"
-                android:text="Cancel"/>
+                android:text="@string/action_cancel"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -368,7 +368,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceButton"
                 android:textColor="@color/primary"
-                android:text="Update"/>
+                android:text="@string/action_update"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -1,13 +1,18 @@
 package com.nego.money;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -64,7 +69,7 @@ public class AddElement extends Dialog {
 
         if (intent.getAction() != null && intent.getAction().equals(Costants.ACTION_EDIT)) {
             e = intent.getParcelableExtra(Costants.EXTRA_ELEMENT);
-            importo.setText("" + e.getImporto());
+            importo.setText(e.getImporto());
             persona.setText(e.getPeople());
             nota.setText(e.getNote());
             if (!e.Me())
@@ -80,11 +85,6 @@ public class AddElement extends Dialog {
             }
         });
 
-        ArrayList<String> suggestions = Utils.chooseContacts(mContext, "");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext,
-                android.R.layout.simple_dropdown_item_1line, suggestions.toArray(new String[suggestions.size()]));
-        persona.setAdapter(adapter);
-
         persona.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -98,10 +98,7 @@ public class AddElement extends Dialog {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayList<String> suggestions = Utils.chooseContacts(mContext, s.toString());
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext,
-                        android.R.layout.simple_dropdown_item_1line, suggestions.toArray(new String[suggestions.size()]));
-                persona.setAdapter(adapter);
+                setContactsArrayAdapter();
             }
         });
 
@@ -157,4 +154,12 @@ public class AddElement extends Dialog {
         }
     }
 
+    public void setContactsArrayAdapter() {
+        ArrayList<String> suggestions = Utils.chooseContacts(mContext, "");
+        if (suggestions != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext,
+                    android.R.layout.simple_dropdown_item_1line, suggestions.toArray(new String[suggestions.size()]));
+            persona.setAdapter(adapter);
+        }
+    }
 }

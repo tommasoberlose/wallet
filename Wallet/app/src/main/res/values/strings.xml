@@ -61,7 +61,7 @@
     <string name="options_not_archived">To do</string>
     <string name="text_note">Note:</string>
     <string name="help_feedback_subtitle">The Google + Community for help, send feedback and suggestions</string>
-    <string name="action_filter_title">Filter Archived Debts</string>
+    <string name="action_filter_title">Filter Items</string>
     <string name="action_filter_subtitle">Choose which debts in the main list view of your wallet</string>
     <string name="filter_archive_0">Only new items</string>
     <string name="filter_archive_1">Only archived items</string>

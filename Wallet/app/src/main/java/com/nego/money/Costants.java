@@ -23,5 +23,6 @@ public class Costants {
 
     public static final String ARCHIVE_FILTER = "ARCHIVE_FILTER";
     public static final String PREFERENCE_SHOW_NOTIFICATION = "PREFERENCE_SHOW_NOTIFICATION";
+    public static final int CODE_REQUEST_PERMISSION_READ_CONTACTS = 3;
 
 }

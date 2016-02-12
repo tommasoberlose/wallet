@@ -6,6 +6,8 @@
         android:orderInCategory="50" android:title="@string/action_search"
         app:showAsAction="collapseActionView|always"
         app:actionViewClass="android.support.v7.widget.SearchView" />
+    <item android:id="@+id/action_filter" android:icon="@drawable/ic_action_filter_list" android:title="@string/action_filter_title"
+        android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_settings" android:icon="@drawable/ic_action_settings" android:title="@string/title_activity_settings"
         android:orderInCategory="105" app:showAsAction="never" />
 </menu>

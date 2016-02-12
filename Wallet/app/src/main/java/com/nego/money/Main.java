@@ -1,5 +1,6 @@
 package com.nego.money;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -130,6 +134,11 @@ public class Main extends AppCompatActivity {
 
         update_list(query);
 
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission();
+        }
+
     }
 
     @Override
@@ -193,6 +202,26 @@ public class Main extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent setting_i = new Intent(this, Settings.class);
             startActivityForResult(setting_i, 1);
+        }
+
+        if (id == R.id.action_filter) {
+            AlertDialog.Builder filter = new AlertDialog.Builder(this);
+            filter.setTitle(getString(R.string.action_filter_title));
+
+
+            final SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(this);
+            int filter_archive = SP.getInt(Costants.ARCHIVE_FILTER, 0);
+
+            filter.setSingleChoiceItems(new String[] {getString(R.string.filter_archive_0), getString(R.string.filter_archive_1), getString(R.string.filter_archive_2)}, filter_archive, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                            SP.edit().putInt(Costants.ARCHIVE_FILTER, selectedPosition).apply();
+                            update_list(query);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null);
+            filter.show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -353,6 +382,21 @@ public class Main extends AppCompatActivity {
             invalidateOptionsMenu();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    public void requestPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_CONTACTS},
+                Costants.CODE_REQUEST_PERMISSION_READ_CONTACTS);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            update_list(query);
         }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_feedback_subtitle">La comunità di Google+ per chiedere aiuto, inviare feedback e suggerimenti</string>
-    <string name="action_filter_title">Filtra Debiti Archiviati</string>
+    <string name="action_filter_title">Filtra Elementi</string>
     <string name="action_filter_subtitle">Scegli quali debiti visualizzare nella lista principale del tuo portafoglio</string>
     <string name="filter_archive_0">Solo elementi nuovi</string>
     <string name="filter_archive_1">Solo elementi archiviati</string>
