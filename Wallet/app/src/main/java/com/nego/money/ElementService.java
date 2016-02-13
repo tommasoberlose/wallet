@@ -25,6 +25,7 @@ public class ElementService extends IntentService {
     }
 
     private void sendResponse(String s, Element r) {
+        Utils.showNotification(this);
         Intent i = new Intent(Costants.ACTION_UPDATE_LIST);
         i.putExtra(Costants.EXTRA_ACTION_TYPE, s);
         i.putExtra(Costants.EXTRA_ELEMENT, r);
@@ -67,6 +68,9 @@ public class ElementService extends IntentService {
             } else if (Costants.ACTION_CHECKED.equals(action)) {
                 final Element r = intent.getParcelableExtra(Costants.EXTRA_ELEMENT);
                 doneElement(r);
+            } else if (Costants.ACTION_CHECKED_MULTI.equals(action)) {
+                final ArrayList<Element> r = intent.getParcelableArrayListExtra(Costants.EXTRA_ELEMENT);
+                doneElements(r);
             } else if (Costants.ACTION_UNCHECKED.equals(action)) {
                 final Element r = intent.getParcelableExtra(Costants.EXTRA_ELEMENT);
                 undodoneElement(r);
@@ -142,6 +146,19 @@ public class ElementService extends IntentService {
         if (r.done_element(this, dbHelper)) {
             sendResponse(Costants.ACTION_CHECKED, r);
         }
+        dbHelper.close();
+    }
+
+    private void doneElements(ArrayList<Element> RM) {
+        DbAdapter dbHelper = new DbAdapter(this);
+        dbHelper.open();
+        int count = 0;
+        for (Element r : RM) {
+            if (r.done_element(this, dbHelper))
+                count++;
+        }
+        if (count == RM.size())
+            sendResponse(Costants.ACTION_CHECKED_MULTI, RM);
         dbHelper.close();
     }
 

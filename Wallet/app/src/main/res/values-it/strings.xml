@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="help_feedback_subtitle">La comunità di Google+ per chiedere aiuto, inviare feedback e suggerimenti</string>
-    <string name="action_filter_title">Filtra Elementi</string>
-    <string name="action_filter_subtitle">Scegli quali debiti visualizzare nella lista principale del tuo portafoglio</string>
-    <string name="filter_archive_0">Solo elementi nuovi</string>
-    <string name="filter_archive_1">Solo elementi archiviati</string>
-    <string name="filter_archive_2">Tutti gli elementi</string>
-    <string name="action_notification_title">Mostra Notifica Riassuntiva</string>
-    <string name="action_notification_subtitle">Una notifica riassuntiva verrà visualizzata quando saranno presenti degli elementi</string>
-    <string name="subtitle_notification">Importo attuale: %s</string>
-    <string name="action_notification_subtitle_not">La notifica riassuntiva non è visualizzata anche se sono presenti degli elementi</string>
-    <string name="action_update">Aggiorna</string>
+    <string name="action_done_all">Concludi tutti</string>
 </resources>

@@ -28,12 +28,7 @@
                 android:id="@+id/action_change_currency"
                 android:padding="8dp"
                 android:gravity="center_vertical">
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_money"
-                    android:tint="@color/secondary_text"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -65,16 +60,11 @@
                 android:id="@+id/action_notification"
                 android:padding="8dp"
                 android:gravity="center_vertical">
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:padding="8dp"
-                    android:id="@+id/icon_notification"
-                    android:src="@drawable/ic_action_label_outline"
-                    android:tint="@color/secondary_text"/>
+
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
                     android:orientation="vertical"
                     android:layout_margin="8dp">
                     <TextView
@@ -90,6 +80,11 @@
                         android:id="@+id/action_notification_subtitle"
                         android:text="@string/action_notification_subtitle"/>
                 </LinearLayout>
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/action_notification_switch"
+                    android:layout_margin="8dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,15 +99,11 @@
                 android:id="@+id/action_feedback"
                 android:padding="8dp"
                 android:gravity="center_vertical">
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_action_info_outline"
-                    android:tint="@color/secondary_text"/>
+
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
                     android:orientation="vertical"
                     android:layout_margin="8dp">
                     <TextView

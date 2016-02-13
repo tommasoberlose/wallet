@@ -251,6 +251,17 @@ public class Main extends AppCompatActivity {
                 return true;
             }
 
+            // DONE ALL
+            if(id == R.id.action_done_all) {
+                final ArrayList<Element> toUse = adapter.getSelectedItem();
+                if (adapter.getSelectedItemCount() == 1) {
+                    ElementService.startAction(Main.this, Costants.ACTION_CHECKED, toUse.get(0));
+                } else {
+                    ElementService.startAction(Main.this, Costants.ACTION_CHECKED_MULTI, toUse);
+                }
+                return true;
+            }
+
             // SELECT ALL
             if(id == R.id.action_select_all) {
                 adapter.selectAll();

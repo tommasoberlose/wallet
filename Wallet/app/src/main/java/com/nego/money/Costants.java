@@ -9,6 +9,7 @@ public class Costants {
     public static final String ACTION_DELETE_MULTI = "intent.action.money.ACTION_DELETE_MULTI";
     public static final String ACTION_UNDELETE_MULTI = "intent.action.money.ACTION_UNDELETE_MULTI";
     public static final String ACTION_CHECKED = "intent.action.money.ACTION_CHECKED";
+    public static final String ACTION_CHECKED_MULTI = "intent.action.money.ACTION_CHECKED_MULTI";
     public static final String ACTION_UNCHECKED = "intent.action.money.ACTION_UNCHECKED";
 
     public static final String EXTRA_ACTION_TYPE = "intent.extra.money.ACTION_TYPE";

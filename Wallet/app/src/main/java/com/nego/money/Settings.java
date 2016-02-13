@@ -9,10 +9,12 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -108,13 +110,21 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.action_notification).setOnClickListener(new View.OnClickListener() {
+        // NOTIFICATION
+        final SwitchCompat action_notification_switch = (SwitchCompat) findViewById(R.id.action_notification_switch);
+        action_notification_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 boolean show_notification = SP.getBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, false);
                 SP.edit().putBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, !show_notification).apply();
                 Utils.showNotification(Settings.this);
                 updateUI();
+            }
+        });
+        findViewById(R.id.action_notification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action_notification_switch.setChecked(!action_notification_switch.isChecked());
             }
         });
 
@@ -135,7 +145,7 @@ public class Settings extends AppCompatActivity {
 
     public void updateUI() {
         boolean show_notification = SP.getBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, false);
-        ((ImageView) findViewById(R.id.icon_notification)).setImageResource(show_notification ? R.drawable.ic_action_label : R.drawable.ic_action_label_outline);
+        ((SwitchCompat) findViewById(R.id.action_notification_switch)).setChecked(show_notification);
         ((TextView) findViewById(R.id.action_notification_subtitle)).setText(show_notification ? R.string.action_notification_subtitle : R.string.action_notification_subtitle_not);
     }
 }

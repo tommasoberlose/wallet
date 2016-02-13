@@ -86,7 +86,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:tint="@color/secondary_text"
-                    android:src="@drawable/ic_action_person"/>
+                    android:src="@drawable/ic_action_face"/>
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
