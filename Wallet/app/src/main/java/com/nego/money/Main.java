@@ -293,7 +293,7 @@ public class Main extends AppCompatActivity {
                 mActionMode = Main.this.startSupportActionMode(new ActionBarCallBack());
 
             if (adapter.getSelectedItemCount() != 0)
-                mActionMode.setTitle("" + adapter.getSelectedItemCount());
+                mActionMode.setTitle(getString(R.string.app_name) + ": " + adapter.getSelectedItemAmount() + SP.getString(Costants.ACTUAL_CURRENCY, Currency.getInstance(Locale.getDefault()).getSymbol())/* + " (" + adapter.getSelectedItemCount() + ")"*/);
             else {
                 mActionMode.finish();
                 mActionMode = null;

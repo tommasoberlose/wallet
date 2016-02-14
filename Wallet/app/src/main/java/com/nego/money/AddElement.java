@@ -98,7 +98,7 @@ public class AddElement extends Dialog {
 
             @Override
             public void afterTextChanged(Editable s) {
-                setContactsArrayAdapter();
+                setContactsArrayAdapter(s.toString());
             }
         });
 
@@ -154,8 +154,8 @@ public class AddElement extends Dialog {
         }
     }
 
-    public void setContactsArrayAdapter() {
-        ArrayList<String> suggestions = Utils.chooseContacts(mContext, "");
+    public void setContactsArrayAdapter(String query) {
+        ArrayList<String> suggestions = Utils.chooseContacts(mContext, query);
         if (suggestions != null) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext,
                     android.R.layout.simple_dropdown_item_1line, suggestions.toArray(new String[suggestions.size()]));

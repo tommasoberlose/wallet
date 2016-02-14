@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -68,7 +69,6 @@ public class Utils {
                         name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
                         contact_id = cursor.getString(cursor.getColumnIndex(_ID));
                         photo = cursor.getString(cursor.getColumnIndex(PHOTO_URI));
-
                         if (name != null && name.toLowerCase().equals(query.toLowerCase())) {
                             found = true;
                             break;
@@ -93,7 +93,6 @@ public class Utils {
                 Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
 
             String name;
-
             ArrayList<String> list = new ArrayList<>();
 
             Uri CONTENT_URI = Uri.parse("content://contacts/people");
@@ -107,7 +106,6 @@ public class Utils {
 
                     while (cursor.moveToNext()) {
                         name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
-
                         if (name != null && name.toLowerCase().contains(query.toLowerCase())) {
                             list.add(name);
                         }

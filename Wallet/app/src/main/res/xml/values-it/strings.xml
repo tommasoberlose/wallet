@@ -67,4 +67,5 @@
     <string name="subtitle_notification">Importo attuale: %s</string>
     <string name="action_notification_subtitle_not">La notifica riassuntiva non è visualizzata anche se sono presenti degli elementi</string>
     <string name="action_update">Aggiorna</string>
+    <string name="action_done_all">Concludi tutti</string>
 </resources>

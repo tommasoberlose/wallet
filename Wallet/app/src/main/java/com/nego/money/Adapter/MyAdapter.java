@@ -111,7 +111,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+
+        final Item i = mDataset.get(position);
         if (mDataset.get(position).getType() == 4) {
+            final Element e = i.getItem();
+
             // ITEM
             item = holder.back_item;
             people = holder.people;
@@ -124,20 +128,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
             // INFO
 
-            if (mDataset.get(position).getItem().Done()) {
-                date.setText(mContext.getString(R.string.action_payed) + ": " + getDate(mDataset.get(position).getItem().getDated()));
+            if (e.Done()) {
+                date.setText(mContext.getString(R.string.action_payed) + ": " + getDate(e.getDated()));
                 back_icon.setBackgroundResource(R.drawable.checked_icon);
             } else {
                 back_icon.setBackgroundResource(R.drawable.iconb_l);
-                date.setText(getDate(mDataset.get(position).getItem().getDatec()));
+                date.setText(getDate(e.getDatec()));
             }
 
+            // PEOPLE
+            people.setText(e.getPeople());
+            String[] contact = Utils.fetchContacts(mContext, e.getPeople());
+            if (contact != null) {
+                if (contact[2] != null) {
+                    icon.setVisibility(View.VISIBLE);
+                    icon.setImageURI(Uri.parse(contact[2]));
+                } else {
+                    icon.setVisibility(View.GONE);
+                }
+                people.setText(contact[1]);
+            } else {
+                icon.setVisibility(View.GONE);
+            }
 
             // ICON
             icon = holder.icon;
             back_icon = holder.back_icon;
 
-            if (mDataset.get(position).isSelected()) {
+            if (i.isSelected()) {
                 letter.setVisibility(View.GONE);
                 icon.setVisibility(View.GONE);
                 tick.setVisibility(View.VISIBLE);
@@ -147,29 +165,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 letter.setVisibility(View.VISIBLE);
                 item.setSelected(false);
 
-                String[] iniziali = mDataset.get(position).getItem().getPeople().split(" ");
+                String[] iniziali = e.getPeople().split(" ");
                 if (iniziali.length == 0) {
                     people.setText(mContext.getString(R.string.unknow));
                     letter.setText(mContext.getString(R.string.unknow).charAt(0));
                 } else if (iniziali.length == 1) {
                     letter.setText("" + iniziali[0].charAt(0));
-                    people.setText(mDataset.get(position).getItem().getPeople());
                 } else {
                     letter.setText("" + iniziali[0].charAt(0) + iniziali[1].charAt(0));
-                    people.setText(mDataset.get(position).getItem().getPeople());
-                }
-
-                String[] contact = Utils.fetchContacts(mContext, mDataset.get(position).getItem().getPeople());
-                if (contact != null) {
-                    if (contact[2] != null) {
-                        icon.setVisibility(View.VISIBLE);
-                        icon.setImageURI(Uri.parse(contact[2]));
-                    } else {
-                        icon.setVisibility(View.GONE);
-                    }
-                    people.setText(contact[1]);
-                } else {
-                    icon.setVisibility(View.GONE);
                 }
             }
 
@@ -177,29 +180,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             String currency = SP.getString(Costants.ACTUAL_CURRENCY, Currency.getInstance(Locale.getDefault()).getSymbol());
 
             String negative = "";
-            if (mDataset.get(position).getItem().Me())
+            if (e.Me())
                 negative = "-";
-            importo.setText(negative + mDataset.get(position).getItem().getImporto() + currency);
+            importo.setText(negative + e.getImporto() + currency);
 
-            if (mDataset.get(position).getItem().Done())
-                importo.setTextColor(mContext.getResources().getColor(R.color.third_text));
+            if (e.Done())
+                importo.setTextColor(ContextCompat.getColor(mContext, R.color.third_text));
             else {
-                if (mDataset.get(position).getItem().Me())
-                    importo.setTextColor(mContext.getResources().getColor(R.color.accent));
+                if (e.Me())
+                    importo.setTextColor(ContextCompat.getColor(mContext, R.color.accent));
                 else
-                    importo.setTextColor(mContext.getResources().getColor(R.color.primary));
+                    importo.setTextColor(ContextCompat.getColor(mContext, R.color.primary));
             }
 
             final Intent intent = new Intent(mContext, ViewElement.class);
             intent.setAction(Costants.ACTION_VIEW);
-            intent.putExtra(Costants.EXTRA_ELEMENT, mDataset.get(position).getItem());
+            intent.putExtra(Costants.EXTRA_ELEMENT, e);
 
             // ON CLICK
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (getSelectedItemCount() > 0) {
-                        toggleSelection(position);
+                        toggleSelection(i);
                     } else {
                         new ViewElement(mContext, intent).show();
                     }
@@ -210,7 +213,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             item.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    toggleSelection(position);
+                    toggleSelection(i);
                     return true;
                 }
             });
@@ -219,7 +222,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             back_icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    toggleSelection(position);
+                    toggleSelection(i);
                 }
             });
         }
@@ -276,33 +279,42 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    public void toggleSelection(int pos) {
+    public void toggleSelection(Item i) {
+        int pos = findPosition(i);
         mDataset.get(pos).toggleSelected();
         notifyItemChanged(pos);
         ((Main)mContext).toggleCab(true);
     }
 
     public void clearSelections() {
-        for(int k=0;k<mDataset.size();k++)
-            if (mDataset.get(k).getType() == 4 && mDataset.get(k).isSelected())
-                mDataset.get(k).toggleSelected();
+        for(Item i : mDataset)
+            if (i.getType() == 4 && i.isSelected())
+                i.toggleSelected();
         notifyDataSetChanged();
         ((Main)mContext).toggleCab(false);
     }
 
     public int getSelectedItemCount() {
         int f = 0;
-        for(int k=0;k<mDataset.size();k++)
-            if (mDataset.get(k).getType() == 4 && mDataset.get(k).isSelected())
+        for(Item i : mDataset)
+            if (i.getType() == 4 && i.isSelected())
                 f++;
+        return f;
+    }
+
+    public float getSelectedItemAmount() {
+        float f = 0;
+        for(Item i : mDataset)
+            if (i.getType() == 4 && i.isSelected())
+                f += Float.parseFloat(i.getItem().getImporto());
         return f;
     }
 
     public void selectAll() {
         if (getSelectedItemCount() != getItemCount() - 1) {
-            for (int k = 0; k < mDataset.size(); k++)
-                if (mDataset.get(k).getType() == 4 && !mDataset.get(k).isSelected())
-                    toggleSelection(k);
+            for (Item i : mDataset)
+                if (i.getType() == 4 && !i.isSelected())
+                    toggleSelection(i);
         } else {
             clearSelections();
         }
@@ -311,9 +323,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public ArrayList<Element> getSelectedItem() {
         ArrayList<Element> selected = new ArrayList<>();
-        for (int k=0;k<mDataset.size();k++)
-            if(mDataset.get(k).getType() == 4 && mDataset.get(k).isSelected()) {
-                selected.add(mDataset.get(k).getItem());
+        for (Item i: mDataset)
+            if(i.getType() == 4 && i.isSelected()) {
+                selected.add(i.getItem());
             }
         return selected;
     }
@@ -327,5 +339,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public Element getElement(int position) {
         return mDataset.get(position).getItem();
+    }
+
+    public int findPosition(Item i) {
+        for (int k = 0; k < mDataset.size(); k++) {
+            if (i.getItem().getId() == mDataset.get(k).getItem().getId())
+                return k;
+        }
+        return 0;
     }
 }

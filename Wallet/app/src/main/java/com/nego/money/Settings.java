@@ -112,11 +112,11 @@ public class Settings extends AppCompatActivity {
 
         // NOTIFICATION
         final SwitchCompat action_notification_switch = (SwitchCompat) findViewById(R.id.action_notification_switch);
+        ((SwitchCompat) findViewById(R.id.action_notification_switch)).setChecked(SP.getBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, false));
         action_notification_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                boolean show_notification = SP.getBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, false);
-                SP.edit().putBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, !show_notification).apply();
+                SP.edit().putBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, !SP.getBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, false)).apply();
                 Utils.showNotification(Settings.this);
                 updateUI();
             }
@@ -145,7 +145,6 @@ public class Settings extends AppCompatActivity {
 
     public void updateUI() {
         boolean show_notification = SP.getBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, false);
-        ((SwitchCompat) findViewById(R.id.action_notification_switch)).setChecked(show_notification);
         ((TextView) findViewById(R.id.action_notification_subtitle)).setText(show_notification ? R.string.action_notification_subtitle : R.string.action_notification_subtitle_not);
     }
 }
