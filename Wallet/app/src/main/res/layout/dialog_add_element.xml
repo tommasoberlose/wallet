@@ -68,9 +68,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/back_select"
+                    android:textColor="@color/divider"
                     android:id="@+id/currency"
-                    android:textSize="54sp"/>
+                    android:textSize="54sp"
+                    android:text="€"/>
 
             </LinearLayout>
 
