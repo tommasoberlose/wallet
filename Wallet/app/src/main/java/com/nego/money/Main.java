@@ -102,28 +102,41 @@ public class Main extends AppCompatActivity {
                 final Element to_archive = adapter.getElement(viewHolder.getAdapterPosition());
                 if (to_archive != null) {
                     if (!to_archive.Done()) {
-                        ElementService.startAction(Main.this, Costants.ACTION_CHECKED, to_archive);
-                        Snackbar.make(recList, getString(R.string.element_paid), Snackbar.LENGTH_LONG)
-                                .setAction(getString(R.string.undo), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        ElementService.startAction(Main.this, Costants.ACTION_UNCHECKED, to_archive);
-                                        Snackbar.make(recList, getString(R.string.element_unpaid), Snackbar.LENGTH_LONG)
-                                                .show();
-                                    }
-                                })
-                                .show();
+                        new AlertDialog.Builder(Main.this)
+                            .setMessage(getResources().getString(R.string.ask_archive_items) + "?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    ElementService.startAction(Main.this, Costants.ACTION_CHECKED, to_archive);
+                                    Snackbar.make(toolbar, getString(R.string.element_paid), Snackbar.LENGTH_LONG)
+                                            .show();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null)
+                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    update_list(query);
+                                }
+                            })
+                            .show();
                     } else {
                         new AlertDialog.Builder(Main.this)
                             .setMessage(getResources().getString(R.string.ask_delete_element) + "?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     ElementService.startAction(Main.this, Costants.ACTION_DELETE, to_archive);
-                                    Snackbar.make(recList, getString(R.string.element_deleted), Snackbar.LENGTH_LONG)
+                                    Snackbar.make(toolbar, getString(R.string.element_deleted), Snackbar.LENGTH_LONG)
                                             .show();
                                 }
                             })
-                            .setNegativeButton(android.R.string.no, null).show();
+                            .setNegativeButton(android.R.string.no, null)
+                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    update_list(query);
+                                }
+                            })
+                            .show();
                     }
                 }
             }
@@ -253,12 +266,18 @@ public class Main extends AppCompatActivity {
 
             // DONE ALL
             if(id == R.id.action_done_all) {
-                final ArrayList<Element> toUse = adapter.getSelectedItem();
-                if (adapter.getSelectedItemCount() == 1) {
-                    ElementService.startAction(Main.this, Costants.ACTION_CHECKED, toUse.get(0));
-                } else {
-                    ElementService.startAction(Main.this, Costants.ACTION_CHECKED_MULTI, toUse);
-                }
+                new AlertDialog.Builder(Main.this)
+                        .setMessage(getResources().getString(R.string.ask_archive_items) + "?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                final ArrayList<Element> toUse = adapter.getSelectedItem();
+                                if (adapter.getSelectedItemCount() == 1) {
+                                    ElementService.startAction(Main.this, Costants.ACTION_CHECKED, toUse.get(0));
+                                } else {
+                                    ElementService.startAction(Main.this, Costants.ACTION_CHECKED_MULTI, toUse);
+                                }
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
                 return true;
             }
 

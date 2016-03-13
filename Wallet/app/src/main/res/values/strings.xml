@@ -72,4 +72,5 @@
     <string name="action_notification_subtitle_not">Summary notification is not shown, even if there are elements</string>
     <string name="action_update">Update</string>
     <string name="action_done_all">Done all Items</string>
+    <string name="ask_archive_items">Are you sure you want to store these items</string>
 </resources>
