@@ -73,4 +73,7 @@
     <string name="action_update">Update</string>
     <string name="action_done_all">Done all Items</string>
     <string name="ask_archive_items">Are you sure you want to store these items</string>
+    <string name="title_preferences_pin">Protect your stuff</string>
+    <string name="pin_enabled">Pin protection enabled</string>
+    <string name="pin_disabled">Pin protection disabled</string>
 </resources>

@@ -27,12 +27,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -74,6 +80,27 @@ public class Main extends AppCompatActivity {
         setTitle(getResources().getString(R.string.title_activity_main));
 
         SP = PreferenceManager.getDefaultSharedPreferences(this);
+        SP.edit().putString(Costants.PREFERENCES_PIN, "1234").apply();
+        final EditText pin = (EditText) findViewById(R.id.pin);
+        if (!SP.getString(Costants.PREFERENCES_PIN, "").equals("")) {
+            findViewById(R.id.action_pin).setVisibility(View.VISIBLE);
+            pin.requestFocus();
+            pin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        if (v.getText().toString().equals(SP.getString(Costants.PREFERENCES_PIN, ""))) {
+                            findViewById(R.id.action_pin).setVisibility(View.GONE);
+                            pin.clearFocus();
+                        }
+                    }
+
+                    return false;
+                }
+            });
+        } else {
+            findViewById(R.id.action_pin).setVisibility(View.GONE);
+        }
 
         // FLOATING BUTTON
         button = (FloatingActionButton) findViewById(R.id.fab_1);

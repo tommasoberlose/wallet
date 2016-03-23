@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ask_archive_items">Sei sicuro di voler archiviare questi elementi</string>
+    <string name="title_preferences_pin">Proteggi i tuoi affari</string>
+    <string name="pin_disabled">Protezione con pin disattivata</string>
+    <string name="pin_enabled">Protezione con pin attivata</string>
 </resources>

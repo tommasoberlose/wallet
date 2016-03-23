@@ -26,4 +26,6 @@ public class Costants {
     public static final String PREFERENCE_SHOW_NOTIFICATION = "PREFERENCE_SHOW_NOTIFICATION";
     public static final int CODE_REQUEST_PERMISSION_READ_CONTACTS = 3;
 
+    public static final String PREFERENCES_PIN = "PREFERENCES_PIN";
+
 }

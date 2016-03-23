@@ -146,5 +146,6 @@ public class Settings extends AppCompatActivity {
     public void updateUI() {
         boolean show_notification = SP.getBoolean(Costants.PREFERENCE_SHOW_NOTIFICATION, false);
         ((TextView) findViewById(R.id.action_notification_subtitle)).setText(show_notification ? R.string.action_notification_subtitle : R.string.action_notification_subtitle_not);
+        ((TextView) findViewById(R.id.subtitle_preferences_pin)).setText(SP.getString(Costants.PREFERENCES_PIN, "").equals("") ? R.string.pin_disabled : R.string.pin_enabled);
     }
 }

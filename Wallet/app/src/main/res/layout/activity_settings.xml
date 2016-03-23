@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nego.money.Settings">
+    tools:context="com.nego.money.Settings"
+    android:background="@color/back_selected_item">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_awesome_toolbar"
@@ -19,106 +21,154 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackground"
-                android:id="@+id/action_change_currency"
-                android:padding="8dp"
-                android:gravity="center_vertical">
-
+                app:cardCornerRadius="3dp"
+                app:cardElevation="0dp"
+                android:background="@android:color/white"
+                app:cardBackgroundColor="@android:color/white"
+                android:layout_margin="16dp"
+                app:cardPreventCornerOverlap="true">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="8dp">
-                    <TextView
+                    android:orientation="vertical">
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceListItem"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/action_change_currency"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/secondary_text"
-                        android:text="@string/action_change_currency_subtitle"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/back_select"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackground"
-                android:id="@+id/action_notification"
-                android:padding="8dp"
-                android:gravity="center_vertical">
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:id="@+id/action_change_currency"
+                        android:padding="8dp"
+                        android:gravity="center_vertical">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:orientation="vertical"
-                    android:layout_margin="8dp">
-                    <TextView
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="8dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceListItem"
+                                android:textColor="@color/primary_text"
+                                android:text="@string/action_change_currency"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/secondary_text"
+                                android:text="@string/action_change_currency_subtitle"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/back_select"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceListItem"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/action_notification_title"/>
-                    <TextView
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:id="@+id/action_password"
+                        android:padding="8dp"
+                        android:gravity="center_vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="8dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceListItem"
+                                android:textColor="@color/primary_text"
+                                android:text="@string/title_preferences_pin"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/secondary_text"
+                                android:text="@string/pin_disabled"
+                                android:id="@+id/subtitle_preferences_pin"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/back_select"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/secondary_text"
-                        android:id="@+id/action_notification_subtitle"
-                        android:text="@string/action_notification_subtitle"/>
-                </LinearLayout>
-                <android.support.v7.widget.SwitchCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/action_notification_switch"
-                    android:layout_margin="8dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/back_select"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackground"
-                android:id="@+id/action_feedback"
-                android:padding="8dp"
-                android:gravity="center_vertical">
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:id="@+id/action_notification"
+                        android:padding="8dp"
+                        android:gravity="center_vertical">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:orientation="vertical"
-                    android:layout_margin="8dp">
-                    <TextView
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.8"
+                            android:orientation="vertical"
+                            android:layout_margin="8dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceListItem"
+                                android:textColor="@color/primary_text"
+                                android:text="@string/action_notification_title"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/secondary_text"
+                                android:id="@+id/action_notification_subtitle"
+                                android:text="@string/action_notification_subtitle"/>
+                        </LinearLayout>
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/action_notification_switch"
+                            android:layout_margin="8dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/back_select"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceListItem"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/help_feedback"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/secondary_text"
-                        android:text="@string/help_feedback_subtitle"/>
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:id="@+id/action_feedback"
+                        android:padding="8dp"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.8"
+                            android:orientation="vertical"
+                            android:layout_margin="8dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceListItem"
+                                android:textColor="@color/primary_text"
+                                android:text="@string/help_feedback"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/secondary_text"
+                                android:text="@string/help_feedback_subtitle"/>
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
