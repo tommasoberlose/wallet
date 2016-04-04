@@ -76,4 +76,7 @@
     <string name="title_preferences_pin">Protect your stuff</string>
     <string name="pin_enabled">Pin protection enabled</string>
     <string name="pin_disabled">Pin protection disabled</string>
+    <string name="title_add_pin">Choose Pasw</string>
+    <string name="text_password">Password</string>
+    <string name="subtitle_add_pasw">Enter a password to protect your things.\n(Remove the pin if you do not want protection)</string>
 </resources>

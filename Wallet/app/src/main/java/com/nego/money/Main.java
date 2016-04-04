@@ -80,9 +80,8 @@ public class Main extends AppCompatActivity {
         setTitle(getResources().getString(R.string.title_activity_main));
 
         SP = PreferenceManager.getDefaultSharedPreferences(this);
-        SP.edit().putString(Costants.PREFERENCES_PIN, "1234").apply();
         final EditText pin = (EditText) findViewById(R.id.pin);
-        if (!SP.getString(Costants.PREFERENCES_PIN, "").equals("")) {
+        if (!SP.getString(Costants.PREFERENCES_PIN, "").equals("") && savedInstanceState == null) {
             findViewById(R.id.action_pin).setVisibility(View.VISIBLE);
             pin.requestFocus();
             pin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -90,8 +89,10 @@ public class Main extends AppCompatActivity {
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         if (v.getText().toString().equals(SP.getString(Costants.PREFERENCES_PIN, ""))) {
-                            findViewById(R.id.action_pin).setVisibility(View.GONE);
-                            pin.clearFocus();
+                            Utils.collapse(findViewById(R.id.action_pin));
+                        } else {
+                            Utils.expand(findViewById(R.id.error_pin));
+                            pin.requestFocus();
                         }
                     }
 
@@ -179,6 +180,12 @@ public class Main extends AppCompatActivity {
             requestPermission();
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(Costants.EXTRA_ALREADY_OPEN, true);
     }
 
     @Override

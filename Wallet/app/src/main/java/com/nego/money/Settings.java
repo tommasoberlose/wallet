@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -107,6 +108,25 @@ public class Settings extends AppCompatActivity {
                         })
                         .setNegativeButton(android.R.string.no, null);
                 choose.show();
+            }
+        });
+
+        // PASW
+        findViewById(R.id.action_password).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final View paswView = LayoutInflater.from(Settings.this).inflate(R.layout.pin_dialog, null);
+                final EditText pasw_text = (EditText) paswView.findViewById(R.id.pasw);
+                pasw_text.setText(SP.getString(Costants.PREFERENCES_PIN, ""));
+                new android.support.v7.app.AlertDialog.Builder(Settings.this, R.style.Theme_AppCompat_Light_Dialog_Alert)
+                        .setView(paswView)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SP.edit().putString(Costants.PREFERENCES_PIN, pasw_text.getText().toString()).commit();
+                            }
+                        })
+                        .show();
             }
         });
 

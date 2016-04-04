@@ -68,4 +68,8 @@
     <string name="action_notification_subtitle_not">La notifica riassuntiva non è visualizzata anche se sono presenti degli elementi</string>
     <string name="action_update">Aggiorna</string>
     <string name="action_done_all">Concludi tutti</string>
+    <string name="ask_archive_items">Sei sicuro di voler archiviare questi elementi</string>
+    <string name="title_preferences_pin">Proteggi i tuoi affari</string>
+    <string name="pin_disabled">Protezione con pin disattivata</string>
+    <string name="pin_enabled">Protezione con pin attivata</string>
 </resources>
