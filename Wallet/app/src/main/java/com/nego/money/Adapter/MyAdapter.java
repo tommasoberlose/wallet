@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.nego.money.database.DbAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +69,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ImageView tick;
         public RelativeLayout back_icon;
         public TextView importo;
-        public ViewHolder(View v, RelativeLayout back_item, TextView people, TextView date, ImageView icon, TextView letter, ImageView tick, RelativeLayout back_icon, TextView importo) {
+        public CardView import_container;
+        public ViewHolder(View v, RelativeLayout back_item, TextView people, TextView date, ImageView icon, TextView letter, ImageView tick, RelativeLayout back_icon, TextView importo, CardView import_container) {
             super(v);
             this.back_item = back_item;
             this.people = people;
@@ -77,6 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             this.back_icon = back_icon;
             this.letter = letter;
             this.importo = importo;
+            this.import_container = import_container;
         }
 
     }
@@ -104,7 +108,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.list_item, parent, false);
-            vh = new ViewHolder(v, (RelativeLayout) v.findViewById(R.id.back_item), (TextView) v.findViewById(R.id.people), (TextView) v.findViewById(R.id.date), (ImageView) v.findViewById(R.id.icon), (TextView) v.findViewById(R.id.letter), (ImageView) v.findViewById(R.id.tick), (RelativeLayout) v.findViewById(R.id.back_icon), (TextView) v.findViewById(R.id.importo));
+            vh = new ViewHolder(v, (RelativeLayout) v.findViewById(R.id.back_item), (TextView) v.findViewById(R.id.people), (TextView) v.findViewById(R.id.date), (ImageView) v.findViewById(R.id.icon), (TextView) v.findViewById(R.id.letter), (ImageView) v.findViewById(R.id.tick), (RelativeLayout) v.findViewById(R.id.back_icon), (TextView) v.findViewById(R.id.importo), (CardView) v.findViewById(R.id.import_container));
         }
         return vh;
     }
@@ -128,12 +132,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
             // INFO
 
-            if (e.Done()) {
-                date.setText(mContext.getString(R.string.action_payed) + ": " + getDate(e.getDated()));
-                back_icon.setBackgroundResource(R.drawable.checked_icon);
+            if (e.getNote().equals("")) {
+                if (e.Done()) {
+                    date.setText(mContext.getString(R.string.action_payed) + ": " + getDate(e.getDated()));
+                } else {
+                    date.setText(getDate(e.getDatec()));
+                }
             } else {
-                back_icon.setBackgroundResource(R.drawable.iconb_l);
-                date.setText(getDate(e.getDatec()));
+                date.setText(e.getNote());
             }
 
             // PEOPLE
@@ -152,6 +158,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
 
             // ICON
+
+            if (e.Done()) {
+                back_icon.setBackgroundResource(R.drawable.checked_icon);
+            } else {
+                back_icon.setBackgroundResource(R.drawable.iconb_l);
+            }
+
             icon = holder.icon;
             back_icon = holder.back_icon;
 
@@ -185,12 +198,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             importo.setText(negative + e.getImporto() + currency);
 
             if (e.Done())
-                importo.setTextColor(ContextCompat.getColor(mContext, R.color.third_text));
+                holder.import_container.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.third_text));
             else {
                 if (e.Me())
-                    importo.setTextColor(ContextCompat.getColor(mContext, R.color.accent));
+                    holder.import_container.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.accent));
                 else
-                    importo.setTextColor(ContextCompat.getColor(mContext, R.color.primary));
+                    holder.import_container.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.primary));
             }
 
             final Intent intent = new Intent(mContext, ViewElement.class);
@@ -335,6 +348,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Date data = new Date(date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM d, HH:mm");
         return dateFormat.format(data);
+    }
+
+
+    public static String getLastDate(Context context, long date) {
+        if (date == 0) {
+            return context.getString(R.string.text_never);
+        } else {
+            long difference = (Calendar.getInstance().getTimeInMillis() - date) / 1000;
+            if (difference < 60) { // Secondi
+                return difference + context.getString(R.string.seconds);
+            } else if (difference >= 60 && difference < 3600) { // Minuti
+                return difference / 60 + context.getString(R.string.minutes);
+            } else if (difference >= (60 * 60) && difference < (60*60*24)) { // Ore
+                return difference / (60 * 60) + context.getString(R.string.hours);
+            } else if (difference >= (60*60*24) && difference < (60*60*24*7)) { // Giorni
+                return difference / (60*60*24) + context.getString(R.string.days);
+            } else { // Settimane
+                return difference / (60*60*24*7) + context.getString(R.string.weeks);
+            }
+        }
     }
 
     public Element getElement(int position) {

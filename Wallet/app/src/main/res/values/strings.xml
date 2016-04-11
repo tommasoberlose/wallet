@@ -79,4 +79,10 @@
     <string name="title_add_pin">Choose Pasw</string>
     <string name="text_password">Password</string>
     <string name="subtitle_add_pasw">Enter a password to protect your things.\n(Remove the pin if you do not want protection)</string>
+    <string name="text_never">Never</string>
+    <string name="seconds">s</string>
+    <string name="minutes">m</string>
+    <string name="hours">h</string>
+    <string name="days">d</string>
+    <string name="weeks">w</string>
 </resources>

@@ -40,11 +40,9 @@ public class ViewElement extends Dialog {
             ((TextView) dialogView.findViewById(R.id.datac)).setText(getDate(e.getDatec()));
 
             if (e.getNote().equals("")) {
-                dialogView.findViewById(R.id.note).setVisibility(View.GONE);
-                dialogView.findViewById(R.id.title_note).setVisibility(View.GONE);
+                dialogView.findViewById(R.id.note_container).setVisibility(View.GONE);
             } else {
-                dialogView.findViewById(R.id.note).setVisibility(View.VISIBLE);
-                dialogView.findViewById(R.id.title_note).setVisibility(View.VISIBLE);
+                dialogView.findViewById(R.id.note_container).setVisibility(View.VISIBLE);
                 ((TextView) dialogView.findViewById(R.id.note)).setText(e.getNote());
             }
 

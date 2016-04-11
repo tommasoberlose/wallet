@@ -72,4 +72,13 @@
     <string name="title_preferences_pin">Proteggi i tuoi affari</string>
     <string name="pin_disabled">Protezione con pin disattivata</string>
     <string name="pin_enabled">Protezione con pin attivata</string>
+    <string name="title_add_pin">Scegli Pasw</string>
+    <string name="text_password">Password</string>
+    <string name="subtitle_add_pasw">Inserisci una password per proteggere le tue cose.\n(Cancella il pin se non vuoi protezione)</string>
+    <string name="days">d</string>
+    <string name="minutes">m</string>
+    <string name="hours">h</string>
+    <string name="text_never">Mai</string>
+    <string name="seconds">s</string>
+    <string name="weeks">w</string>
 </resources>

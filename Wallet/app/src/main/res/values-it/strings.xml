@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="title_add_pin">Scegli Pasw</string>
-    <string name="text_password">Password</string>
-    <string name="subtitle_add_pasw">Inserisci una password per proteggere le tue cose.\n(Cancella il pin se non vuoi protezione)</string>
-</resources>

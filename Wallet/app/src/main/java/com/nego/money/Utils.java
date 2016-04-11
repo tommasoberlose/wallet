@@ -137,10 +137,11 @@ public class Utils {
         while (c.moveToNext()) {
             Element e = new Element(c);
             if (!e.Done())
-                if (e.Me())
-                    count = count - Float.parseFloat(e.getImporto());
-                else
-                    count = count + Float.parseFloat(e.getImporto());
+                if (!e.getImporto().equals(""))
+                    if (e.Me())
+                        count = count - Float.parseFloat(e.getImporto());
+                    else
+                        count = count + Float.parseFloat(e.getImporto());
         }
         c.close();
 
