@@ -46,15 +46,12 @@ public class ViewElement extends Dialog {
                 ((TextView) dialogView.findViewById(R.id.note)).setText(e.getNote());
             }
 
-            String[] iniziali = e.getPeople().split(" ");
+            String[] iniziali = e.getPeople().trim().split(" ");
             if (iniziali.length == 0) {
                 ((TextView) dialogView.findViewById(R.id.people)).setText(mContext.getString(R.string.unknow));
                 ((TextView) dialogView.findViewById(R.id.letter)).setText(mContext.getString(R.string.unknow).charAt(0));
-            } else if (iniziali.length == 1) {
+            } else  {
                 ((TextView) dialogView.findViewById(R.id.letter)).setText("" + iniziali[0].charAt(0));
-                ((TextView) dialogView.findViewById(R.id.people)).setText(e.getPeople());
-            } else {
-                ((TextView) dialogView.findViewById(R.id.letter)).setText("" + iniziali[0].charAt(0) + iniziali[1].charAt(0));
                 ((TextView) dialogView.findViewById(R.id.people)).setText(e.getPeople());
             }
 

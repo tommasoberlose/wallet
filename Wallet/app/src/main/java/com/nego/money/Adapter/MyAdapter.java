@@ -178,14 +178,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 letter.setVisibility(View.VISIBLE);
                 item.setSelected(false);
 
-                String[] iniziali = e.getPeople().split(" ");
+                String[] iniziali = e.getPeople().trim().split(" ");
                 if (iniziali.length == 0) {
                     people.setText(mContext.getString(R.string.unknow));
                     letter.setText(mContext.getString(R.string.unknow).charAt(0));
-                } else if (iniziali.length == 1) {
-                    letter.setText("" + iniziali[0].charAt(0));
                 } else {
-                    letter.setText("" + iniziali[0].charAt(0) + iniziali[1].charAt(0));
+                    letter.setText("" + iniziali[0].charAt(0));
                 }
             }
 
@@ -318,8 +316,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public float getSelectedItemAmount() {
         float f = 0;
         for(Item i : mDataset)
-            if (i.getType() == 4 && i.isSelected())
-                f += Float.parseFloat(i.getItem().getImporto());
+            if (i.getType() == 4 && i.isSelected()) {
+                if (i.getItem().Me())
+                    f -= Float.parseFloat(i.getItem().getImporto());
+                else
+                    f += Float.parseFloat(i.getItem().getImporto());
+            }
         return f;
     }
 
