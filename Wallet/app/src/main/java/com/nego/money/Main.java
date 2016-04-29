@@ -41,6 +41,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nego.money.Adapter.MyAdapter;
 import com.nego.money.database.DbAdapter;
@@ -74,110 +75,122 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TOOLBAR
-        toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-        setSupportActionBar(toolbar);
-        setTitle(getResources().getString(R.string.title_activity_main));
+        try {
+            // TOOLBAR
+            toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+            setSupportActionBar(toolbar);
+            setTitle(getResources().getString(R.string.title_activity_main));
 
-        SP = PreferenceManager.getDefaultSharedPreferences(this);
-        final EditText pin = (EditText) findViewById(R.id.pin);
-        if (!SP.getString(Costants.PREFERENCES_PIN, "").equals("") && savedInstanceState == null) {
-            findViewById(R.id.action_pin).setVisibility(View.VISIBLE);
-            pin.requestFocus();
-            pin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        if (v.getText().toString().equals(SP.getString(Costants.PREFERENCES_PIN, ""))) {
-                            Utils.collapse(findViewById(R.id.action_pin));
-                        } else {
-                            Utils.expand(findViewById(R.id.error_pin));
-                            pin.requestFocus();
+            SP = PreferenceManager.getDefaultSharedPreferences(this);
+            final EditText pin = (EditText) findViewById(R.id.pin);
+            if (!SP.getString(Costants.PREFERENCES_PIN, "").equals("") && savedInstanceState == null) {
+                findViewById(R.id.action_pin).setVisibility(View.VISIBLE);
+                pin.requestFocus();
+                pin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            if (v.getText().toString().equals(SP.getString(Costants.PREFERENCES_PIN, ""))) {
+                                Utils.collapse(findViewById(R.id.action_pin));
+                            } else {
+                                Utils.expand(findViewById(R.id.error_pin));
+                                pin.requestFocus();
+                            }
                         }
-                    }
 
-                    return false;
+                        return false;
+                    }
+                });
+            } else {
+                findViewById(R.id.action_pin).setVisibility(View.GONE);
+            }
+
+            // FLOATING BUTTON
+            button = (FloatingActionButton) findViewById(R.id.fab_1);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AddElement(Main.this, new Intent()).show();
                 }
             });
-        } else {
-            findViewById(R.id.action_pin).setVisibility(View.GONE);
-        }
 
-        // FLOATING BUTTON
-        button = (FloatingActionButton) findViewById(R.id.fab_1);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AddElement(Main.this, new Intent()).show();
-            }
-        });
+            // RECYCLER LIST
+            recList = (RecyclerView) findViewById(R.id.listView);
+            recList.setHasFixedSize(true);
+            LinearLayoutManager llm = new LinearLayoutManager(this);
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            recList.setLayoutManager(llm);
 
-        // RECYCLER LIST
-        recList = (RecyclerView) findViewById(R.id.listView);
-        recList.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recList.setLayoutManager(llm);
+            ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                final Element to_archive = adapter.getElement(viewHolder.getAdapterPosition());
-                if (to_archive != null) {
-                    if (!to_archive.Done()) {
-                        new AlertDialog.Builder(Main.this)
-                            .setMessage(getResources().getString(R.string.ask_archive_items) + "?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    ElementService.startAction(Main.this, Costants.ACTION_CHECKED, to_archive);
-                                    Snackbar.make(toolbar, getString(R.string.element_paid), Snackbar.LENGTH_LONG)
-                                            .show();
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    update_list(query);
-                                }
-                            })
-                            .show();
-                    } else {
-                        new AlertDialog.Builder(Main.this)
-                            .setMessage(getResources().getString(R.string.ask_delete_element) + "?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    ElementService.startAction(Main.this, Costants.ACTION_DELETE, to_archive);
-                                    Snackbar.make(toolbar, getString(R.string.element_deleted), Snackbar.LENGTH_LONG)
-                                            .show();
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    update_list(query);
-                                }
-                            })
-                            .show();
+                @Override
+                public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                    final Element to_archive = adapter.getElement(viewHolder.getAdapterPosition());
+                    if (to_archive != null) {
+                        if (!to_archive.Done()) {
+                            new AlertDialog.Builder(Main.this)
+                                    .setMessage(getResources().getString(R.string.ask_archive_items) + "?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            ElementService.startAction(Main.this, Costants.ACTION_CHECKED, to_archive);
+                                            Snackbar.make(toolbar, getString(R.string.element_paid), Snackbar.LENGTH_LONG)
+                                                    .show();
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            update_list(query);
+                                        }
+                                    })
+                                    .show();
+                        } else {
+                            new AlertDialog.Builder(Main.this)
+                                    .setMessage(getResources().getString(R.string.ask_delete_element) + "?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            ElementService.startAction(Main.this, Costants.ACTION_DELETE, to_archive);
+                                            Snackbar.make(toolbar, getString(R.string.element_deleted), Snackbar.LENGTH_LONG)
+                                                    .show();
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            update_list(query);
+                                        }
+                                    })
+                                    .show();
+                        }
                     }
                 }
+            };
+
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(recList);
+
+            update_list(query);
+
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermission();
             }
-        };
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(recList);
+        } catch (Exception e) {
+            Toast.makeText(this, "Error, please send me an email!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/html");
+            intent.putExtra(Intent.EXTRA_EMAIL, "tommaso.berlose@gmail.com");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Wallet Error");
+            intent.putExtra(Intent.EXTRA_TEXT, "" + e.toString());
 
-        update_list(query);
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
+            startActivity(Intent.createChooser(intent, "Send Email"));
         }
 
     }
