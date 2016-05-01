@@ -8,7 +8,7 @@ android {
         applicationId "com.nego.money"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 31
+        versionCode 32
         versionName "1.1"
     }
     buildTypes {

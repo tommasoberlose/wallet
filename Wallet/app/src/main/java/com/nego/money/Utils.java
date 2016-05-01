@@ -26,6 +26,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.nego.money.database.DbAdapter;
 
@@ -138,10 +139,14 @@ public class Utils {
             Element e = new Element(c);
             if (!e.Done())
                 if (!e.getImporto().equals(""))
-                    if (e.Me())
-                        count = count - Float.parseFloat(e.getImporto());
-                    else
-                        count = count + Float.parseFloat(e.getImporto());
+                    try {
+                        if (e.Me())
+                            count = count - Float.parseFloat(e.getImporto());
+                        else
+                            count = count + Float.parseFloat(e.getImporto());
+                    } catch (Exception ex) {
+                        Toast.makeText(context, context.getString(R.string.error_importo_sbagliato), Toast.LENGTH_SHORT).show();
+                    }
         }
         c.close();
 

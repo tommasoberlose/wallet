@@ -85,4 +85,5 @@
     <string name="hours">h</string>
     <string name="days">d</string>
     <string name="weeks">w</string>
+    <string name="error_importo_sbagliato">Error, import is not valid</string>
 </resources>

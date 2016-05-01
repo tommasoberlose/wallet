@@ -133,24 +133,29 @@ public class AddElement extends Dialog {
         } else if (Utils.isEmpty(persona)) {
             Toast.makeText(mContext, mContext.getString(R.string.errore_people), Toast.LENGTH_SHORT).show();
         } else {
-            if (e == null) {
-                Calendar c = Calendar.getInstance();
-                String chi = "0";
-                if (who.getSelectedItemPosition() == 1)
-                    chi = "1";
-                e = new Element(persona.getText().toString(), nota.getText().toString(), "0", chi, importo.getText().toString(), "null", c.getTimeInMillis(), 0);
-                ElementService.startAction(mContext, Costants.ACTION_CREATE, e);
-            } else {
-                String chi = "0";
-                if (who.getSelectedItemPosition() == 1)
-                    chi = "1";
-                e.setPeople(persona.getText().toString());
-                e.setNote(nota.getText().toString());
-                e.setWho(chi);
-                e.setImporto(importo.getText().toString());
-                ElementService.startAction(mContext, Costants.ACTION_UPDATE, e);
+            try {
+                float f = Float.parseFloat(importo.getText().toString());
+                if (e == null) {
+                    Calendar c = Calendar.getInstance();
+                    String chi = "0";
+                    if (who.getSelectedItemPosition() == 1)
+                        chi = "1";
+                    e = new Element(persona.getText().toString(), nota.getText().toString(), "0", chi, importo.getText().toString(), "null", c.getTimeInMillis(), 0);
+                    ElementService.startAction(mContext, Costants.ACTION_CREATE, e);
+                } else {
+                    String chi = "0";
+                    if (who.getSelectedItemPosition() == 1)
+                        chi = "1";
+                    e.setPeople(persona.getText().toString());
+                    e.setNote(nota.getText().toString());
+                    e.setWho(chi);
+                    e.setImporto(importo.getText().toString());
+                    ElementService.startAction(mContext, Costants.ACTION_UPDATE, e);
+                }
+                dismiss();
+            } catch (Exception e) {
+                Toast.makeText(mContext, mContext.getString(R.string.error_importo_sbagliato), Toast.LENGTH_SHORT).show();
             }
-            dismiss();
         }
     }
 

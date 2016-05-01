@@ -81,4 +81,5 @@
     <string name="text_never">Mai</string>
     <string name="seconds">s</string>
     <string name="weeks">w</string>
+    <string name="error_importo_sbagliato">Errore, importo non valido</string>
 </resources>
