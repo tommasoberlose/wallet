@@ -145,7 +145,8 @@ public class Utils {
                         else
                             count = count + Float.parseFloat(e.getImporto());
                     } catch (Exception ex) {
-                        Toast.makeText(context, context.getString(R.string.error_importo_sbagliato), Toast.LENGTH_SHORT).show();
+                        ex.printStackTrace();
+                        //Toast.makeText(context, context.getString(R.string.error_importo_sbagliato), Toast.LENGTH_SHORT).show();
                     }
         }
         c.close();
