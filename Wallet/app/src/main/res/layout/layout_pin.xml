@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:clickable="true">
         <LinearLayout
@@ -32,8 +32,8 @@
             app:cardElevation="0dp"
             app:cardCornerRadius="3dp"
             android:layout_gravity="bottom"
-            android:background="@color/primary_dark"
-            app:cardBackgroundColor="@color/primary_dark"
+            android:background="@color/colorPrimaryDark"
+            app:cardBackgroundColor="@color/colorPrimaryDark"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="32dp"
@@ -57,7 +57,7 @@
                     android:padding="8dp"
                     android:textColor="@android:color/white"
                     android:inputType="numberPassword"
-                    android:background="@color/primary_dark"
+                    android:background="@color/colorPrimaryDark"
                     android:textSize="24sp"
                     android:gravity="center"
                     android:id="@+id/pin"

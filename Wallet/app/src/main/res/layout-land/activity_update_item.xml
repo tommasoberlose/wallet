@@ -12,8 +12,8 @@
         android:layout_weight="0.4"
         app:cardCornerRadius="0dp"
         app:cardElevation="2dp"
-        android:background="@color/primary"
-        app:cardBackgroundColor="@color/primary"
+        android:background="@color/colorPrimary"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardPreventCornerOverlap="true">
         <LinearLayout
             android:layout_width="match_parent"
@@ -372,7 +372,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceButton"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/colorPrimary"
                     android:text="@string/action_update"/>
             </LinearLayout>
         </LinearLayout>

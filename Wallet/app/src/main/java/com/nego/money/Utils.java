@@ -189,7 +189,7 @@ public class Utils {
                     .setContentIntent(pi)
                     .setOngoing(true)
                     .setPriority(-1)
-                    .setColor(ContextCompat.getColor(context, R.color.primary))
+                    .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                     .setContentTitle(context.getString(R.string.app_name))
                     .setContentText(context.getString(R.string.subtitle_notification, "" + debt) + SP.getString(Costants.ACTUAL_CURRENCY, Currency.getInstance(Locale.getDefault()).getSymbol()));
 

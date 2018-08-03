@@ -90,8 +90,8 @@ public class ViewElement extends Dialog {
                 ((TextView) dialogView.findViewById(R.id.importo)).setTextColor(ContextCompat.getColor(mContext, R.color.accent));
             } else {
                 ((TextView) dialogView.findViewById(R.id.own)).setText(mContext.getString(R.string.they_own));
-                dialogView.findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(mContext, R.color.primary));
-                ((TextView) dialogView.findViewById(R.id.importo)).setTextColor(ContextCompat.getColor(mContext, R.color.primary));
+                dialogView.findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                ((TextView) dialogView.findViewById(R.id.importo)).setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
             }
 
             if (e.Done()) {

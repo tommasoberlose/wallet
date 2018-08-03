@@ -201,7 +201,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 if (e.Me())
                     holder.import_container.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.accent));
                 else
-                    holder.import_container.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.primary));
+                    holder.import_container.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
             }
 
             final Intent intent = new Intent(mContext, ViewElement.class);

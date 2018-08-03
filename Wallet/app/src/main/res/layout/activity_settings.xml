@@ -13,7 +13,7 @@
         android:layout_height="?android:attr/actionBarSize"
         android:layout_width="match_parent"
         android:theme="@style/style_actionBar"
-        android:background="@color/primary" />
+        android:background="@color/colorPrimary" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -54,7 +54,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceListItem"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/colorPrimary_text"
                                 android:text="@string/action_change_currency"/>
                             <TextView
                                 android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceListItem"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/colorPrimary_text"
                                 android:text="@string/title_preferences_pin"/>
                             <TextView
                                 android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceListItem"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/colorPrimary_text"
                                 android:text="@string/action_notification_title"/>
                             <TextView
                                 android:layout_width="match_parent"
@@ -158,7 +158,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceListItem"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/colorPrimary_text"
                                 android:text="@string/help_feedback"/>
                             <TextView
                                 android:layout_width="match_parent"

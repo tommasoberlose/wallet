@@ -2,15 +2,15 @@
 <resources>
 
 
-    <color name="fab_color_1">#19a15f</color>
-    <color name="fab_color_1_muted">#12804b</color>
+    <color name="fab_color_1">#F98B60</color>
+    <color name="fab_color_1_muted">#FFE084</color>
 
-    <color name="primary">#19a15f</color>
-    <color name="primary_dark">#12804b</color>
-    <color name="primary_light">#C5CAE9</color>
-    <color name="accent">#F44336</color>
+    <color name="colorPrimary">#FFE084</color>
+    <color name="colorPrimaryDark">#FFC057</color>
+    <color name="colorPrimary_light">#FFE084</color>
+    <color name="accent">#009688</color>
     <color name="accent_1">#D32F2F</color>
-    <color name="primary_text">#212121</color>
+    <color name="colorPrimary_text">#212121</color>
     <color name="all_text">#444444</color>
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>

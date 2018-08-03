@@ -14,7 +14,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/colorPrimary_text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/title_add_pin"
                 android:layout_marginLeft="16dp"
@@ -40,7 +40,7 @@
                 android:id="@+id/pasw"
                 android:inputType="textPassword"
                 android:gravity="center_vertical"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/colorPrimary_text"
                 android:textColorHint="@color/secondary_text"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp" />
